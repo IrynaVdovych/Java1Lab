@@ -39,7 +39,7 @@ public class LucasNumbers {
      * @return is it a cube
      */
     private boolean testCube(int n) {
-        double r = Math.pow(n, 1 / 3);
+        double r = Math.pow(n, 1. / 3);
         int ir = (int) Math.round(r);
         if (n == ir*ir*ir) return true;
         else return false;
