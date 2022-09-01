@@ -47,7 +47,7 @@ public class LucasNumbers {
 
     /**
      * @param n number of sequence(start from 0)
-     * @return array of cubes among lucas numbers
+     * @return array of cubes among first n lucas numbers
      */
     public int[] getLucasCubeNumbers(int n) {
         int tmpArr[] = new int[n + 1];

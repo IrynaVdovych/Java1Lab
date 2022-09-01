@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class Lab1 {
     /**
-     * @param args array of parameters
+     * @param args array of string parameters
      */
     public static void main(String args[]) {
         Scanner sc = new Scanner(System.in);
