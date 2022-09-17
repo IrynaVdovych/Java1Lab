@@ -8,18 +8,15 @@ import java.lang.Math;
  * class for operate with Lucas numbers
  */
 public class LucasNumbers {
-    //приватні поля, які містять початкові значення послідовності чисел Люка
-    private int l0 = 2;
-    private int l1 = 1;
-
     /**
-     * this is a constructor
+     * this is a simple constructor
+     * @author Vdovych Iryna
      */
-    //конструктор
+
     public LucasNumbers() {
     }
-
     /**
+     *
      * @param n number of sequence(start from 0)
      * @return value of n-th Lucas numbers
      */
@@ -28,9 +25,9 @@ public class LucasNumbers {
         //захист від некоректного значення
         if (n < 0) return 0;
         //змінні для обчислення трьох послідовних чисел Люка
-        int lcur = l1 + l0; //друге число
-        int lprev = l1; //перше число
-        int lpprev = l0;  //нульове число
+        int lpprev = 2;  //нульове число
+        int lprev = 1; //перше число
+        int lcur = lpprev + lprev; //друге число
         //цикл обчислення наступних членів послідовності чисел люка
         for (int k = 0; k < n; k++) {
             lpprev = lprev; //к-те число
@@ -63,29 +60,45 @@ public class LucasNumbers {
 
     //повертає масив перших n чисел люка, які є точними кубами
     public int[] getLucasCubeNumbers(int n) {
+        //захист від некоректного значення
+        if (n < 0) return new int[0];
         //масив цілих чисел для збереження результатів пошуку
         int tmpArr[] = new int[n + 1];
         //лічильник знайдених кубів
         int nmbCubes = 0;
-        //цикл по індексах від 0 до n включно
-        for (int k = 0; k <= n; k++) {
-            //обчислюємо k-те число Люка
-            int lucas = getLucasNumber(k);
-            //якщо воно є кубом
-            if (testCube(lucas)) {
+
+        //змінні для обчислення трьох послідовних чисел Люка
+        int lpprev = 2;  //нульове число
+        int lprev = 1; //перше число
+        int lcur = lpprev + lprev; //друге число
+
+        //цикл обчислення наступних членів послідовності чисел люка
+        for (int k = 0; k < n; k++) {
+            lpprev = lprev; //к-те число
+            lprev = lcur; //к+1 число
+            lcur = lprev + lpprev; //к+2 число
+            //якщо k-те число є кубом
+            if (testCube(lpprev)) {
                 //додаємо його до масиву
-                tmpArr[nmbCubes] = lucas;
+                tmpArr[nmbCubes] = lpprev;
                 //збільшуємо лічильник
                 nmbCubes++;
             }
         }
+        return resize(tmpArr, nmbCubes);
+    }
 
-        //масив цілих чисел в якому зберігаємо результат пошуку(без зайвих нулів)
-        int cubeArr[] = new int[nmbCubes];
-        //ітеруємося по знайдених nmbcubes перших елементах масиву tmparr
-        for(int k = 0; k < nmbCubes; k++)
-            //копіюємо значення масиву tmparr в масив cubearr
-            cubeArr[k] = tmpArr[k];
-        return cubeArr;
+    /**
+     * @param arr array to resize
+     * @param n new size of array
+     * @return resized array
+     */
+    private int[] resize(int[] arr, int n) {
+        int newArr[] = new int[n];
+        //ітеруємося по перших елементах масиву arr
+        for(int k = 0; k < n; k++)
+            //копіюємо значення масиву arr в масив newarr
+            newArr[k] = arr[k];
+        return newArr;
     }
 }
