@@ -1,49 +1,42 @@
 //оголошення пакету
 package com.example.lab1;
 
-//імпорт математичної бібліотеки
-import java.lang.Math;
+import java.util.Scanner;
 
 /**
- * class for operate with Lucas numbers
+ * main class of the package
  */
-public class LucasNumbers {
+public class LucasNumber {
     /**
-     * this is a simple constructor
-     * @author Vdovych Iryna
+     * @param args array of string parameters
      */
+    public static void main(String args[]) {
+        //створюємо екземпляр класу scanner
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Вкажіть кількість чисел Люка для тесту: ");
+        //зчитуємо ціле число з консолі у змінну n
+        int n = sc.nextInt();
+        System.out.println("Числа Люка серед перших " + n + ", які є кубами:");
+        //у масив цілих чисел cubes за допомогою методу get lucas cube numbers записуємо масив чисел люка,
+        // які є точними кубами
+        int[] cubes = getLucasCubeNumbers(n);
 
-    public LucasNumbers() {
-    }
-    /**
-     *
-     * @param n number of sequence(start from 0)
-     * @return value of n-th Lucas numbers
-     */
-    //метод повертає значення n-того числа Люка
-    public int getLucasNumber(int n) {
-        //захист від некоректного значення
-        if (n < 0) return 0;
-        //змінні для обчислення трьох послідовних чисел Люка
-        int lpprev = 2;  //нульове число
-        int lprev = 1; //перше число
-        int lcur = lpprev + lprev; //друге число
-        //цикл обчислення наступних членів послідовності чисел люка
-        for (int k = 0; k < n; k++) {
-            lpprev = lprev; //к-те число
-            lprev = lcur; //к+1 число
-            lcur = lprev + lpprev; //к+2 число
+        //ітеруємось індексом k по елементах масива cubes і виводимо на екран
+        for (int cube : cubes) {
+            System.out.print(" ");
+            System.out.println(cube);
         }
-        return lpprev; //повертаємо n-те число люка
     }
 
     /**
+     * method checks if n is a cube
+     *
      * @param n number
      * @return is it a cube
      */
 
     //привтаний метод пеервіряє чи є число параметр кубом якогось цілого числа
-    private boolean testCube(int n) {
+    private static boolean testCube(int n) {
         //корінь третьої степені із числа n
         double r = Math.pow(n, 1. / 3);
         //заокруглюємо результат до найближчого цілого числа
@@ -54,16 +47,34 @@ public class LucasNumbers {
     }
 
     /**
+     * method returns an array with first elements of param array
+     *
+     * @param arr array to resize
+     * @param n new size of array
+     * @return resized array
+     */
+    private static int[] resize(int[] arr, int n) {
+        int newArr[] = new int[n];
+        //ітеруємося по перших елементах масиву arr
+        for(int k = 0; k < n; k++)
+            //копіюємо значення масиву arr в масив newarr
+            newArr[k] = arr[k];
+        return newArr;
+    }
+
+    /**
+     * method returns all Lucas Numbers that are cubes
+     *
      * @param n number of sequence(start from 0)
      * @return array of cubes among first n lucas numbers
      */
 
     //повертає масив перших n чисел люка, які є точними кубами
-    public int[] getLucasCubeNumbers(int n) {
+    public static int[] getLucasCubeNumbers(int n) {
         //захист від некоректного значення
         if (n < 0) return new int[0];
         //масив цілих чисел для збереження результатів пошуку
-        int tmpArr[] = new int[n + 1];
+        int[] tmpArr = new int[n + 1];
         //лічильник знайдених кубів
         int nmbCubes = 0;
 
@@ -88,17 +99,6 @@ public class LucasNumbers {
         return resize(tmpArr, nmbCubes);
     }
 
-    /**
-     * @param arr array to resize
-     * @param n new size of array
-     * @return resized array
-     */
-    private int[] resize(int[] arr, int n) {
-        int newArr[] = new int[n];
-        //ітеруємося по перших елементах масиву arr
-        for(int k = 0; k < n; k++)
-            //копіюємо значення масиву arr в масив newarr
-            newArr[k] = arr[k];
-        return newArr;
-    }
 }
+
+
